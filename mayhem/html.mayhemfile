@@ -1,0 +1,4 @@
+project: PROJECT
+target: html
+cmds:
+- cmd: /out/html
