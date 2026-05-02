@@ -21,6 +21,9 @@ if [ "$SANITIZER" = undefined ]; then
     export CXXFLAGS="$CXXFLAGS -fsanitize=unsigned-integer-overflow -fno-sanitize-recover=unsigned-integer-overflow"
 fi
 
+# Clang 22 emits DWARF 5 by default; older binutils requires DWARF 4.
+export CFLAGS="$CFLAGS -gdwarf-4"
+
 export V=1
 
 ./autogen.sh \
@@ -29,7 +32,8 @@ export V=1
     --without-ftp \
     --without-http \
     --without-legacy \
-    --without-python
+    --without-python \
+    --disable-maintainer-mode
 make -j$(nproc)
 
 cd fuzz
